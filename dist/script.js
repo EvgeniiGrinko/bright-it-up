@@ -5428,6 +5428,7 @@ function () {
     this.btns = document.querySelectorAll(triggers);
     this.overlay = document.querySelector(overlay);
     this.close = this.overlay.querySelector('.close');
+    this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
   }
 
   _createClass(VideoPlayer, [{
@@ -5484,16 +5485,16 @@ function () {
   }, {
     key: "onPlayerStateChange",
     value: function onPlayerStateChange(state) {
-      var blockedElem = this.activeBtn.closest('.module__vdeo-item').nextElementSibling;
+      var blockedElem = this.activeBtn.closest('.module__video-item').nextElementSibling;
       var palyBtn = this.activeBtn.querySelector('svg').cloneNode(true);
 
       if (state.data === 0) {
         if (blockedElem.querySelector('.play__circle').classList.contains('closed')) {
           blockedElem.querySelector('.play__circle').classList.remove('closed');
           blockedElem.querySelector('svg').remove();
-          blockedElem.querySelector('play__circle').appendChild(palyBtn);
-          blockedElem.querySelector('play__text').textContent = 'paly video';
-          blockedElem.querySelector('play__text').classList.remove('attention');
+          blockedElem.querySelector('.play__circle').appendChild(palyBtn);
+          blockedElem.querySelector('.play__text').textContent = 'paly video';
+          blockedElem.querySelector('.play__text').classList.remove('attention');
           blockedElem.style.opacity = '1';
           blockedElem.style.filter = 'none';
         }

@@ -3,6 +3,7 @@ export default class VideoPlayer {
         this.btns = document.querySelectorAll(triggers);
         this.overlay = document.querySelector(overlay);
         this.close = this.overlay.querySelector('.close');
+        this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
     }
     bindTriggers () {
         this.btns.forEach(btn => {
@@ -46,16 +47,16 @@ export default class VideoPlayer {
          
     }
     onPlayerStateChange(state) {
-        const blockedElem = this.activeBtn.closest('.module__vdeo-item').nextElementSibling;
+        const blockedElem = this.activeBtn.closest('.module__video-item').nextElementSibling;
         const palyBtn = this.activeBtn.querySelector('svg').cloneNode(true);
 
         if(state.data === 0) {
-           if( blockedElem.querySelector('.play__circle').classList.contains('closed')){
+           if(blockedElem.querySelector('.play__circle').classList.contains('closed')){
             blockedElem.querySelector('.play__circle').classList.remove('closed')
             blockedElem.querySelector('svg').remove();
-            blockedElem.querySelector('play__circle').appendChild(palyBtn);
-            blockedElem.querySelector('play__text').textContent = 'paly video';
-            blockedElem.querySelector('play__text').classList.remove('attention');
+            blockedElem.querySelector('.play__circle').appendChild(palyBtn);
+            blockedElem.querySelector('.play__text').textContent = 'paly video';
+            blockedElem.querySelector('.play__text').classList.remove('attention');
             blockedElem.style.opacity = '1';
             blockedElem.style.filter = 'none';
 
