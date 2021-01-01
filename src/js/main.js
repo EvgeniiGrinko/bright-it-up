@@ -9,8 +9,8 @@ window.addEventListener('DOMContentLoaded', () => {
     slider.render();
     const moduleSlider = new MainSlider({container: '.moduleapp', btns: '.next'});
     moduleSlider.render();
-    const player = new VideoPlayer('.showup .play', '.overlay');
-    player.init();
+    new VideoPlayer('.showup .play', '.overlay').init();
+    new VideoPlayer('.module__video-item .play', '.overlay').init();
     const showUpSlider = new MiniSlider({container: '.showup__content-slider', prev: '.showup__prev', next: '.showup__next', activeClass: 'card-active', animate: true});
     showUpSlider.init();
     const modulesSlider = new MiniSlider({container: '.modules__content-slider', prev: '.modules__info-btns .slick-prev', next: '.modules__info-btns .slick-next',  activeClass: 'card-active', animate: true, autoplay: true});
