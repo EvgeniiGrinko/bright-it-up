@@ -6,10 +6,19 @@ export default class VideoPlayer {
         this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
     }
     bindTriggers () {
-        this.btns.forEach(btn => {
-
+        this.btns.forEach((btn, i) => {
+            try {
+                const blockedElem = btn.closest('.module__video-item').nextElementSibling;
+                if(i % 2 == 0) {
+                blockedElem.setAttribute('data-disabled', 'true')
+            }
+            } catch (error) {
+                
+            }
+            
             btn.addEventListener('click', () => {
-                this.activeBtn = btn;
+                if(!btn.closest('.module__video-item') || btn.closest('.module__video-item').getAttribute('data-disabled') !== "true") {
+                    this.activeBtn = btn;
 
                 if(document.querySelector('iframe#frame')){
                     this.overlay.style.display = 'flex';
@@ -20,6 +29,7 @@ export default class VideoPlayer {
                 } else {
                     this.path = btn.getAttribute('data-url');
                     this.createPlayer(this.path);
+                }
                 }
                 
             })
@@ -47,6 +57,8 @@ export default class VideoPlayer {
          
     }
     onPlayerStateChange(state) {
+        try {
+            
         const blockedElem = this.activeBtn.closest('.module__video-item').nextElementSibling;
         const palyBtn = this.activeBtn.querySelector('svg').cloneNode(true);
 
@@ -59,8 +71,11 @@ export default class VideoPlayer {
             blockedElem.querySelector('.play__text').classList.remove('attention');
             blockedElem.style.opacity = '1';
             blockedElem.style.filter = 'none';
-
+            blockedElem.setAttribute('data-disabled', 'false')
         }
+        }
+        } catch (error) {
+            
         }
     }
     
