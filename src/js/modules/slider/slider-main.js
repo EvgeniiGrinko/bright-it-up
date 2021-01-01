@@ -37,28 +37,39 @@ export default class MainSlider extends Slider {
     plusSlides(n) {
         this.showSlides(this.slideIndex += n)
     }
+    bindTriggers(){
+        this.btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.plusSlides(1);
+            });
+            btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.slideIndex = 1;
+                this.showSlides(this.slideIndex);
+            })
+        });
+        document.querySelectorAll('.prevmodule').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                this.plusSlides(-1);
+            })
+        })
+        document.querySelectorAll('.nextmodule').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                this.plusSlides(1);
+            })
+        })
+    }
     render() {
-        try {
+         if (this.container) {
             try {
                 this.hanson = document.querySelector('.hanson');
-                
-            } catch (error) {
-                
-            }
-            this.btns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    this.plusSlides(1);
-                });
-                btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.slideIndex = 1;
-                    this.showSlides(this.slideIndex);
-                })
-            });
+            } catch (error) {}
             this.showSlides(this.slideIndex);
-        } catch (error) {
-            
-        }
-
+            this.bindTriggers();
+         }
     }
 }
